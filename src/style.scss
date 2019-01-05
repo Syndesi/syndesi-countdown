@@ -1,0 +1,91 @@
+@import "./variables.scss";
+@import ".~normalize.css/normalize.css";
+//@import ".~bootstrap/scss/bootstrap.scss";
+
+body {
+    background-color: #fff;
+    position: relative;
+    min-height: 100vh;
+    font-family: 'Roboto Mono', sans-serif;
+    font-weight: 300;
+    color: $text;
+}
+
+p {
+    text-align:justify;
+}
+
+.full-width {
+    margin-left: 0px;
+    margin-right: 0px;
+    width: 100%;
+    max-width: none;
+}
+
+.content {
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    transform: translate(-50%, -50%);
+}
+
+.title {
+    font-size: 50px;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.countdown {
+    display: flex;
+    .timeElement {
+        flex: 1 1 1;
+        p {
+            padding: 0 0.5ch;
+            text-align:center;
+            font-weight: 400;
+            font-size: 75px;
+            line-height: 1.1em;
+            .label {
+                font-weight: 300;
+                font-size: 50px;
+            }
+        }
+    }
+}
+
+.footer {
+    position: fixed;
+    bottom: 0px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding:1.1em 0;
+    a {
+        color: $text;
+        transition: color 0.1s ease-in-out;
+        padding: 0 0.5ch;
+        text-decoration: none;
+        &:hover,
+        &:active,
+        &:focus {
+            text-decoration: none;
+            color: $primary;
+        }
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .title {
+        font-size: 1rem;
+        margin-bottom: 30px;
+    }
+    .countdown {
+        .timeElement {
+            p {
+                font-size: 1.5rem;
+                .label {
+                    font-size: 1rem;
+                }
+            }
+        }
+    }
+}
