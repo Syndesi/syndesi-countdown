@@ -1,27 +1,49 @@
 import React from 'react';
 import moment from 'moment';
+import axios from 'axios';
 
 export default class Countdown extends React.Component {
 
   constructor(props){
     super(props);
     this.state = {
-      days: 0,
-      hours: 0,
+      days:    0,
+      hours:   0,
       minutes: 0,
-      seconds: 0
+      seconds: 0,
+      updates: 0
     };
     this.countdownHandle = setInterval(() => {this.tick()}, 250);
   }
 
   tick(){
     var d = moment.duration(moment(this.props.event) - moment());
+    // send every 10s a request to the server for later logging
+    if(this.state.updates != 0 && this.state.updates % 40 == 0){
+      this.analytic();
+    }
+    // reload the page when the countdown is finished
+    if(Math.floor(d.asSeconds()) <= 1){
+      this.reload();
+    }
+    // update the internal data so that the UI can be updated
     this.setState({
-      days: String(Math.floor(d.asDays())).padStart(2, '0'),
-      hours: String(d.hours()).padStart(2, '0'),
+      days:    String(Math.floor(d.asDays())).padStart(2, '0'),
+      hours:   String(d.hours()).padStart(2, '0'),
       minutes: String(d.minutes()).padStart(2, '0'),
-      seconds: String(d.seconds()).padStart(2, '0')
+      seconds: String(d.seconds()).padStart(2, '0'),
+      updates: this.state.updates + 1
     });
+  }
+
+  reload(){
+    location.reload(true);
+  }
+
+  analytic(){
+    axios.get('/analytic?screenX='+screen.width+'&screenY='+screen.height)
+    .then((res) => {})
+    .catch((e) => {});
   }
 
   render(){
