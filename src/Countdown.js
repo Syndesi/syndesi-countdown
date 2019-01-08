@@ -18,12 +18,16 @@ export default class Countdown extends React.Component {
 
   tick(){
     var d = moment.duration(moment(this.props.event) - moment());
+    var remaining = Math.floor(d.asSeconds());
     // send every 10s a request to the server for later logging
     if(this.state.updates != 0 && this.state.updates % 40 == 0){
       this.analytic();
     }
+    if(remaining <= 100){
+      document.title = 'Syndesi ☄️ '+remaining;
+    }
     // reload the page when the countdown is finished
-    if(Math.floor(d.asSeconds()) <= 1){
+    if(remaining <= 1){
       this.reload();
     }
     // update the internal data so that the UI can be updated
